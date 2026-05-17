@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enzo Store - จำหน่ายเปียกแมวและของแมวๆ</title>
+    <!-- นำเข้าฟอนต์ Mali เพื่อความน่ารักเหมือนลายมือ -->
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* โทนสี ม่วง ฟ้า ชมพู (พาสเทล) */
+            --color-pink-light: #FFE2E2;
+            --color-pink-main: #FFB6C1;
+            --color-pink-dark: #D14D72;
+            
+            --color-purple-light: #F3E8FF;
+            --color-purple-main: #D8B4E2;
+            --color-purple-dark: #6A1B9A;
+            
+            --color-blue-light: #E0F7FA;
+            --color-blue-main: #B2EBF2;
+            
+            --color-text-main: #4a4a4a; /* ปรับให้อ่อนลงนิดให้ดูละมุน */
+            --color-text-muted: #888888;
+            --color-bg-paper: #ffffff;
+            --color-grid-line: rgba(230, 230, 230, 0.5); /* เส้นตารางเบาบางลง */
+
+            /* เพิ่มตัวแปร Shadow & Radius (Premium & Cute) */
+            --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.02);
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 30px rgba(216, 180, 226, 0.25);
+            --shadow-lg: 0 20px 50px rgba(216, 180, 226, 0.35);
+            --shadow-hover: 0 15px 35px rgba(209, 77, 114, 0.15);
+
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Mali', cursive, sans-serif;
+            color: var(--color-text-main);
+            background-color: #fdfbfb;
+            /* พื้นหลังรอยเท้าแมว ปรับ opacity ให้อ่อนลงเพื่อความสะอาดตา */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.12' fill='%23D8B4E2'%3E%3Cpath d='M30 40C21.25 40 15 33.75 15 25C15 15 30 10 30 10C30 10 45 15 45 25C45 33.75 38.75 40 30 40Z'/%3E%3Ccircle cx='17.5' cy='17.5' r='5'/%3E%3Ccircle cx='25' cy='7.5' r='5'/%3E%3Ccircle cx='35' cy='7.5' r='5'/%3E%3Ccircle cx='42.5' cy='17.5' r='5'/%3E%3C/g%3E%3Cg opacity='0.12' fill='%23FFB6C1' transform='translate(60, 60)'%3E%3Cpath d='M30 40C21.25 40 15 33.75 15 25C15 15 30 10 30 10C30 10 45 15 45 25C45 33.75 38.75 40 30 40Z'/%3E%3Ccircle cx='17.5' cy='17.5' r='5'/%3E%3Ccircle cx='25' cy='7.5' r='5'/%3E%3Ccircle cx='35' cy='7.5' r='5'/%3E%3Ccircle cx='42.5' cy='17.5' r='5'/%3E%3C/g%3E%3C/svg%3E"),
+                linear-gradient(135deg, #fdfbfb 0%, #F3E8FF 100%);
+            background-size: 120px 120px, 100% 100%;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px 10px; /* เพิ่ม Spacing รอบนอกสุด */
+        }
+
+        /* ส่วนของกระดาษเนื้อหาหลัก */
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.98);
+            background-image: 
+                linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: var(--radius-lg); /* โค้งมนพรีเมียม */
+            box-shadow: var(--shadow-lg); /* เงาลอยนุ่มๆ */
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- Header Section --- */
+        header {
+            text-align: center;
+            padding: 40px 20px 25px; /* โล่งขึ้น */
+            background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 100%);
+        }
+
+        .logo-container {
+            width: 105px;
+            height: 105px;
+            margin: 0 auto 15px;
+            background-color: var(--color-pink-light);
+            border-radius: 50%; /* ทรงกลมน่ารักสุดๆ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            border: 4px solid #fff;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .logo-container:active {
+            transform: scale(0.92);
+        }
+
+        .logo-container img {
+            border-radius: 50% !important; /* บังคับให้รูปด้านในกลมตาม */
+        }
+
+        .logo-svg {
+            width: 60px;
+            height: 60px;
+            fill: #d2a679;
+        }
+
+        h1.store-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, var(--color-purple-dark), var(--color-pink-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(209, 77, 114, 0.1); /* เงาตัวหนังสือเบาๆ */
+        }
+
+        .store-desc {
+            font-size: 0.95rem;
+            color: var(--color-purple-dark);
+            background-color: rgba(243, 232, 255, 0.8);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: var(--shadow-xs);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            padding: 10px 15px 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border-bottom: none; /* เอาเส้นปะออกให้คลีน */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-top: 5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-pink-dark);
+            background-color: rgba(255, 226, 226, 0.4);
+            transform: translateY(-1px);
+        }
+
+        nav a.active {
+            background-color: var(--color-pink-light);
+            color: var(--color-pink-dark);
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3); /* เงาปุ่ม active */
+        }
+        
+        .cart-badge {
+            display: inline-block;
+            background: var(--color-pink-dark);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            box-shadow: 0 2px 5px rgba(209, 77, 114, 0.4);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .cart-badge.bump {
+            transform: scale(1.6) rotate(5deg);
+        }
+
+        /* --- Home Section --- */
+        .hero-banner {
+            background: linear-gradient(135deg, #fff0f0, #f6edff);
+            border-radius: var(--radius-lg);
+            padding: 40px 25px;
+            text-align: center;
+            margin: 10px 25px 30px;
+            border: 2px solid #fff;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 60%);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .hero-banner h2 {
+            color: var(--color-purple-dark);
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            position: relative;
+        }
+        .hero-banner p {
+            color: var(--color-text-muted);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* --- Announcement Section --- */
+        .announcement {
+            text-align: center;
+            padding: 30px 25px 20px;
+        }
+
+        .announcement h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--color-purple-dark);
+        }
+
+        .announcement p {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: var(--color-text-main);
+        }
+
+        .announcement p.small {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            background: rgba(255, 255, 255, 0.6);
+            padding: 8px 15px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: var(--shadow-xs);
+        }
+
+        /* --- Categories (Tags) --- */
+        .categories-container {
+            padding: 10px 25px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* เพิ่ม Spacing */
+        }
+
+        .cat-tag {
+            background-color: #fff;
+            border: 2px solid transparent;
+            color: var(--color-text-muted);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .cat-tag:hover {
+            background-color: #fdfbfb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            color: var(--color-purple-dark);
+        }
+
+        .cat-tag.active {
+            background-color: var(--color-pink-light);
+            color: var(--color-pink-dark);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* --- Product Grid --- */
+        .product-grid {
+            padding: 0 25px 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; /* ขยายความกว้างช่องไฟ */
+        }
+
+        @media (min-width: 480px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 800px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* การ์ดสินค้า Premium */
+        .product-card {
+            background-color: #fff;
+            border: none; /* ไร้ขอบแข็ง */
+            border-radius: var(--radius-md); /* โค้งมนขึ้น */
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm); /* เงาละมุนเริ่มต้น */
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md); /* เด้งเงาเมื่อชี้เมาส์ */
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #fcfcfc;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03); /* มิติแสงด้านใน */
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.08); /* ซูมรูปเล็กน้อย */
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--color-pink-main), var(--color-pink-dark));
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(209, 77, 114, 0.3);
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--color-text-main);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            height: 2.6em;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #d32f2f;
+            align-self: flex-start;
+            margin-bottom: 12px;
+        }
+
+        /* Option Select Overrides (แก้ตัวเลือกให้พรีเมียมขึ้น) */
+        .product-option {
+            border: 1px solid rgba(216, 180, 226, 0.5) !important;
+            border-radius: 12px !important;
+            padding: 8px !important;
+            background-color: #fafafa !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02) !important;
+            transition: all 0.2s !important;
+            margin-bottom: 12px !important;
+            color: var(--color-text-main) !important;
+            font-weight: 500 !important;
+        }
+        .product-option:focus {
+            border-color: var(--color-pink-main) !important;
+            background-color: #fff !important;
+            box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2) !important;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--color-purple-main);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-family: 'Mali', cursive;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: auto;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(216, 180, 226, 0.5); /* เงาปุ่มน่ารักๆ */
+        }
+        .add-to-cart-btn:hover {
+            background-color: var(--color-purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(106, 27, 154, 0.3);
+        }
+        .add-to-cart-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* --- How to Order / Cart / Details Section --- */
+        .howto-container {
+            padding: 30px;
+            background: linear-gradient(145deg, #ffffff, #fdfbfb);
+            border-radius: var(--radius-lg);
+            margin: 10px 25px 40px;
+            border: none;
+            box-shadow: var(--shadow-md); /* กล่องลอยมีมิติ */
+        }
+        .howto-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--color-purple-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--color-pink-light);
+            padding-bottom: 12px;
+        }
+        .howto-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .howto-list li {
+            margin-bottom: 18px;
+            padding-left: 42px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .howto-list li::before {
+            content: counter(item);
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: -2px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--color-pink-main), var(--color-pink-dark));
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            box-shadow: 0 3px 8px rgba(209, 77, 114, 0.3);
+        }
+        .howto-list {
+            counter-reset: item;
+        }
+        
+        /* --- Details Section --- */
+        .details-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-purple-dark);
+            margin: 20px 0 12px;
+            font-weight: 800;
+        }
+        .details-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .details-list li {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--color-text-main);
+        }
+        .details-list li span {
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+        .details-divider {
+            border: none;
+            border-top: 2px dashed rgba(255, 182, 193, 0.5);
+            margin: 25px 0;
+        }
+        .warning-box {
+            background: linear-gradient(135deg, var(--color-pink-light), #fff);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            color: var(--color-pink-dark);
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            line-height: 1.6;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* --- Cart Styles --- */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #fff;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm); /* เงาละมุนแยกชิ้นตะกร้า */
+            border: 1px solid rgba(216, 180, 226, 0.2);
+        }
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-item-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .cart-item-price {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .qty-btn {
+            background: var(--color-purple-light);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--color-purple-dark);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .qty-btn:hover {
+            background: var(--color-purple-main);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .cart-total {
+            text-align: right;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 25px;
+            color: var(--color-purple-dark);
+            padding-top: 15px;
+            border-top: 2px solid rgba(216, 180, 226, 0.3);
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, var(--color-pink-main), var(--color-pink-dark));
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 30px;
+            font-family: 'Mali', cursive;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            display: block;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(209, 77, 114, 0.3);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(209, 77, 114, 0.4);
+        }
+        .action-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* --- Payment & Notification Styles --- */
+        .payment-box {
+            background-color: #fff;
+            border: 2px dashed rgba(178, 235, 242, 0.8);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            margin-top: 25px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .qr-mockup {
+            width: 160px;
+            height: 160px;
+            background: #fafafa;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            margin: 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #aaa;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .payment-box p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        .file-input-wrapper {
+            margin-top: 25px;
+            background: #fdfbfb;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(178, 235, 242, 0.6);
+            text-align: left;
+        }
+        .file-input-wrapper input {
+            font-family: 'Mali', cursive;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-top: 10px;
+            border: 2px dashed #ddd;
+            padding: 12px;
+            border-radius: 12px;
+            background: #fff;
+            transition: 0.3s;
+        }
+        .file-input-wrapper input:hover {
+            border-color: var(--color-blue-main);
+        }
+
+        /* --- Admin Specific Styles --- */
+        .admin-login {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            padding: 30px 0;
+        }
+        .admin-login input {
+            padding: 14px 25px;
+            border-radius: 25px;
+            border: 2px solid rgba(216, 180, 226, 0.5);
+            font-family: 'Mali', cursive;
+            font-size: 1.05rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .admin-login input:focus {
+            border-color: var(--color-purple-dark);
+            box-shadow: 0 0 0 4px rgba(216, 180, 226, 0.3);
+        }
+        
+        .order-card {
+            background: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            border: 1px solid rgba(216, 180, 226, 0.15);
+        }
+        .order-time {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.85rem;
+            color: #999;
+            font-weight: 600;
+        }
+        .status-btn {
+            background-color: var(--color-blue-light);
+            color: var(--color-purple-dark);
+            border: 1px dashed var(--color-blue-main);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Mali', cursive;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-btn:hover:not(:disabled) {
+            background-color: var(--color-blue-main);
+            transform: translateY(-2px);
+        }
+        .status-btn:disabled {
+            background-color: #f5f5f5;
+            color: #aaa;
+            border: 1px solid #ddd;
+            cursor: not-allowed;
+        }
+        .admin-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            border-left: 6px solid var(--color-pink-main);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 3000;
+            font-family: 'Mali', cursive;
+            color: var(--color-text-main);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(120%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes fadeOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(120%); opacity: 0; }
+        }
+
+        /* Utils */
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- ส่วนหัวเว็บ โลโก้ และ ชื่อร้าน -->
+        <header>
+            <!-- ซ่อนปุ่มเข้าแอดมินไว้ที่โลโก้ กด 5 ครั้ง -->
+            <div class="logo-container" title="คลิก 5 ครั้งเพื่อเข้าระบบแม่ค้า" style="overflow: hidden; padding: 0;">
+                <!-- เปลี่ยนโลโก้เป็นรูปภาพตามที่ผู้ใช้ระบุ -->
+                <img src="โลโก้ มีพื้นหลัง.png" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/c65558d9836fee084b8e86c98c463075a4cb0d57/%E0%B9%82%E0%B8%A5%E0%B9%82%E0%B8%81%E0%B9%89%20%E0%B8%A1%E0%B8%B5%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87.png'" alt="Enzo Store Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px;">
+            </div>
+            <h1 class="store-name">Enzo Store</h1>
+            <span class="store-desc">จำหน่ายเปียกแมวและของแมวๆ 🐈</span>
+        </header>
+
+        <!-- เมนูนำทาง -->
+        <nav>
+            <ul>
+                <li><a href="#" class="active" data-target="home">หน้าแรก</a></li>
+                <li><a href="#" data-target="shop">ร้านค้า</a></li>
+                <li><a href="#" data-target="howto">วิธีสั่งซื้อ</a></li>
+                <li><a href="#" data-target="details">รายละเอียด</a></li>
+                <li><a href="#" data-target="cart">🛒 ตะกร้า <span id="cart-count" class="cart-badge">0</span></a></li>
+            </ul>
+        </nav>
+
+        <!-- View: หน้าแรก -->
+        <div id="view-home" class="view-section">
+            <div class="hero-banner">
+                <h2>ต้อนรับสู่ Enzo Store 🐾</h2>
+                <p>ร้านขายอาหารแมว ขนมแมวเลีย และของใช้แมวคัดเกรด ส่งตรงถึงหน้าบ้านทาสแมวทุกคน!</p>
+                <button class="action-btn" onclick="document.querySelector('a[data-target=\'shop\']').click()" style="width: auto; padding: 10px 30px; display: inline-block;">ดูสินค้าทั้งหมด 🛍️</button>
+            </div>
+            
+            <section class="howto-container" style="text-align: center;">
+                <h3 class="details-subtitle" style="justify-content: center; display: flex; margin-top: 0;">✨ สินค้าขายดี ✨</h3>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                    <!-- ตัวอย่างสินค้าแนะนำ (กดเพื่อไปหน้า Shop) -->
+                    <div style="width: 100px; cursor: pointer;" onclick="document.querySelector('a[data-target=\'shop\']').click()">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=150&q=80" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <p style="font-size: 0.8rem; margin-top: 5px;">เปียกไทย</p>
+                    </div>
+                    <div style="width: 100px; cursor: pointer;" onclick="document.querySelector('a[data-target=\'shop\']').click()">
+                        <img src="https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2?auto=format&fit=crop&w=150&q=80" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <p style="font-size: 0.8rem; margin-top: 5px;">แมวเลีย R9</p>
+                    </div>
+                    <div style="width: 100px; cursor: pointer;" onclick="document.querySelector('a[data-target=\'shop\']').click()">
+                        <img src="https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=150&q=80" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <p style="font-size: 0.8rem; margin-top: 5px;">ของเล่นแมว</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View: ร้านค้า -->
+        <div id="view-shop" class="view-section hidden">
+            <!-- ข้อความต้อนรับ -->
+            <section class="announcement">
+                <h2>Enzo Store ยินดีต้อนรับค้าบ</h2>
+                <p>รบกวนลูกค้าดูใน OPEN CHAT ก่อนนะคะว่าร้านเปิดรึเปล่า</p>
+                <p class="small">รบกวนอ่านรายละเอียดค่าส่ง (กดเมนูด้านบนก่อนน้า) ถ้ามีค่าส่งโอนเพิ่มเองได้เลยค่ะ</p>
+            </section>
+
+            <!-- หมวดหมู่สินค้า -->
+            <section class="categories-container" id="category-filters">
+                <button class="cat-tag active" data-filter="all">ทั้งหมด</button>
+                <button class="cat-tag" data-filter="sale">ลดราคา</button>
+                <button class="cat-tag" data-filter="wet-cn">เปียกจีน</button>
+                <button class="cat-tag" data-filter="wet-th">เปียกไทย</button>
+                <button class="cat-tag" data-filter="treats">แมวเลีย</button>
+                <button class="cat-tag" data-filter="freeze-dry">ฟรีซดรายและขนม</button>
+                <button class="cat-tag" data-filter="soup">ซุปแมว</button>
+                <button class="cat-tag" data-filter="litter">ทรายแมว</button>
+                <button class="cat-tag" data-filter="toys">ของใช้แมว</button>
+            </section>
+
+            <!-- ตารางสินค้า -->
+            <section class="product-grid" id="product-grid">
+                
+                <!-- สินค้า ใหม่ Joypet รสน้ำมันปลา -->
+                <div class="product-card" data-category="treats">
+                    <div class="product-img-wrapper">
+                        <img src="Joypet แมวเลีย 15g รสน้ำมันปลา (8฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/4e37dada004c3344e3ac8ae82570800246db2bd3/Joypet%20%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%2015g%20%E0%B8%A3%E0%B8%AA%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%9B%E0%B8%A5%E0%B8%B2%20(8%E0%B8%BF).jpeg'" alt="Joypet แมวเลีย 15g รสน้ำมันปลา" class="product-image">
+                    </div>
+                    <h3 class="product-title">Joypet แมวเลีย 15g รสน้ำมันปลา</h3>
+                    <span class="product-price">8฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า ใหม่ Joypet รสพิราบและรสกระต่าย -->
+                <div class="product-card" data-category="treats">
+                    <div class="product-img-wrapper">
+                        <img src="Joypet แมวเลีย 15g รสพิราบและรสกระต่าย (8฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/4e37dada004c3344e3ac8ae82570800246db2bd3/Joypet%20%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%2015g%20%E0%B8%A3%E0%B8%AA%E0%B8%9E%E0%B8%B4%E0%B8%A3%E0%B8%B2%E0%B8%9A%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A3%E0%B8%AA%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%95%E0%B9%88%E0%B8%B2%E0%B8%A2%20(8%E0%B8%BF).jpeg'" alt="Joypet แมวเลีย 15g รสพิราบและรสกระต่าย" class="product-image">
+                    </div>
+                    <h3 class="product-title">Joypet แมวเลีย 15g รสพิราบและรสกระต่าย</h3>
+                    <span class="product-price">8฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า ใหม่ Joypet รสไก่ดำ -->
+                <div class="product-card" data-category="treats">
+                    <div class="product-img-wrapper">
+                        <img src="Joypet แมวเลีย 15g รสไก่ดำ (8฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/4e37dada004c3344e3ac8ae82570800246db2bd3/Joypet%20%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%2015g%20%E0%B8%A3%E0%B8%AA%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%94%E0%B8%B3%20(8%E0%B8%BF).jpeg'" alt="Joypet แมวเลีย 15g รสไก่ดำ" class="product-image">
+                    </div>
+                    <h3 class="product-title">Joypet แมวเลีย 15g รสไก่ดำ</h3>
+                    <span class="product-price">8฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า 2 -->
+                <div class="product-card" data-category="wet-th sale">
+                    <div style="position: relative; width: 100%;">
+                        <div class="product-badge">ลดราคา</div>
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=300&q=80" alt="อาหารเปียก" class="product-image">
+                        </div>
+                    </div>
+                    <h3 class="product-title">อาหารเปียก Nekko รสปลาทูน่า</h3>
+                    <span class="product-price" style="text-decoration: line-through; font-size: 0.8rem; color: #888;">18฿</span>
+                    <span class="product-price">15฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า 3 -->
+                <div class="product-card" data-category="wet-th">
+                    <div class="product-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=300&q=80" alt="อาหารเปียก" class="product-image">
+                    </div>
+                    <h3 class="product-title">อาหารเปียก Nekko รสไก่</h3>
+                    <span class="product-price">18฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า 4 -->
+                <div class="product-card" data-category="wet-cn">
+                    <div class="product-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=300&q=80" alt="เปียกจีน" class="product-image">
+                    </div>
+                    <h3 class="product-title">อาหารเปียกซุปจีน ซุปปลา</h3>
+                    <span class="product-price">25฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า 5 -->
+                <div class="product-card" data-category="toys">
+                    <div class="product-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=300&q=80" alt="ของเล่นแมว" class="product-image">
+                    </div>
+                    <h3 class="product-title">ไม้ตกแมวขนนก สีสันสดใส</h3>
+                    <span class="product-price">35฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า 7 -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว Cat Litter 5L รูปรวม มี2กลิ่น พีช,ลาเวนเดอร์ (45฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/-665566/61ac36da6ee04532411bc3595d21dc7ad04bc887/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20Cat%20Litter%205L%20%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A3%E0%B8%A7%E0%B8%A1%20%E0%B8%A1%E0%B8%B52%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%20%E0%B8%9E%E0%B8%B5%E0%B8%8A%2C%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C%20(45%E0%B8%BF).jpeg'" alt="ทรายแมว Cat Litter" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว Cat Litter 5L รูปรวม มี2กลิ่น พีช,ลาเวนเดอร์">ทรายแมว Cat Litter 5L รูปรวม มี2กลิ่น พีช,ลาเวนเดอร์</h3>
+                    <span class="product-price">45฿</span>
+                    <select class="product-option" style="margin-bottom: 8px; width: 100%; padding: 5px; border-radius: 8px; border: 1px solid var(--color-purple-main); font-family: 'Mali', cursive; font-size: 0.85rem; outline: none;">
+                        <option value="พีช">🍑 กลิ่นพีช</option>
+                        <option value="ลาเวนเดอร์">🌸 กลิ่นลาเวนเดอร์</option>
+                    </select>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า เพิ่มใหม่ ทรายแมว 6L -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว Cat Litter 6L รูปรวม มี3กลิ่น พีช,ชาเขียว,ลาเวนเดอร์ (55฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/-665566/825643d78dabb09d403efc546d1daf269d13a660/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20Cat%20Litter%206L%20%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A3%E0%B8%A7%E0%B8%A1%20%E0%B8%A1%E0%B8%B53%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%20%E0%B8%9E%E0%B8%B5%E0%B8%8A%2C%E0%B8%8A%E0%B8%B2%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7%2C%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C%20(55%E0%B8%BF).jpeg'" alt="ทรายแมว Cat Litter 6L" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว Cat Litter 6L รูปรวม มี3กลิ่น พีช,ชาเขียว,ลาเวนเดอร์">ทรายแมว Cat Litter 6L รูปรวม มี3กลิ่น พีช,ชาเขียว,ลาเวนเดอร์</h3>
+                    <span class="product-price">55฿</span>
+                    <select class="product-option" style="margin-bottom: 8px; width: 100%; padding: 5px; border-radius: 8px; border: 1px solid var(--color-purple-main); font-family: 'Mali', cursive; font-size: 0.85rem; outline: none;">
+                        <option value="พีช">🍑 กลิ่นพีช</option>
+                        <option value="ชาเขียว">🍵 กลิ่นชาเขียว</option>
+                        <option value="ลาเวนเดอร์">🌸 กลิ่นลาเวนเดอร์</option>
+                    </select>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า เพิ่มใหม่ ทรายแมว Pettosan 5L -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว Pettosan 5L กลิ่นมอคค่า  (49฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/-665566/fd9661b6e854ad7fd45ed624bfd4be5f8a66b46e/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20Pettosan%205L%20%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%84%E0%B9%88%E0%B8%B2%20%20(49%E0%B8%BF).jpeg'" alt="ทรายแมว Pettosan 5L กลิ่นมอคค่า" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว Pettosan 5L กลิ่นมอคค่า">ทรายแมว Pettosan 5L กลิ่นมอคค่า</h3>
+                    <span class="product-price">49฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า เพิ่มใหม่ ทรายแมว Pettosan 10L -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว Pettosan 10L กลิ่นแอปเปิ้ลเขียว (99.jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/-665566/57d8985e211f8c97362a6c0ff96b79f162679016/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20Pettosan%2010L%20%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7%20(99.jpeg'" alt="ทรายแมว Pettosan 10L กลิ่นแอปเปิ้ลเขียว" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว Pettosan 10L กลิ่นแอปเปิ้ลเขียว">ทรายแมว Pettosan 10L กลิ่นแอปเปิ้ลเขียว</h3>
+                    <span class="product-price">99฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า เพิ่มใหม่ ทรายแมว PowerCat 6L -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว PowerCat 6L กลิ่นนม (149฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/2a82def8f0570eb6bb0afd271fccd12862ef076d/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20PowerCat%206L%20%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%99%E0%B8%A1%20(149%E0%B8%BF).jpeg'" alt="ทรายแมว PowerCat 6L กลิ่นนม" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว PowerCat 6L กลิ่นนม">ทรายแมว PowerCat 6L กลิ่นนม</h3>
+                    <span class="product-price">149฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า เพิ่มใหม่ ทรายแมว PowerCat 6L กลิ่นฮันนี่พีช -->
+                <div class="product-card" data-category="litter">
+                    <div class="product-img-wrapper">
+                        <img src="ทรายแมว PowerCat 6L กลิ่นฮันนี่พีช (149฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/488afcc885b00455835393fc2f61fcc67f0a8536/%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%20PowerCat%206L%20%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%AE%E0%B8%B1%E0%B8%99%E0%B8%99%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B5%E0%B8%8A%20(149%E0%B8%BF).jpeg'" alt="ทรายแมว PowerCat 6L กลิ่นฮันนี่พีช" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="ทรายแมว PowerCat 6L กลิ่นฮันนี่พีช">ทรายแมว PowerCat 6L กลิ่นฮันนี่พีช</h3>
+                    <span class="product-price">149฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+                
+                <!-- สินค้า 8 -->
+                <div class="product-card" data-category="wet-cn sale">
+                    <div style="position: relative; width: 100%;">
+                        <div class="product-badge">ลดราคา</div>
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=300&q=80" alt="เปียกจีน" class="product-image">
+                        </div>
+                    </div>
+                    <h3 class="product-title">อาหารเปียกซุปจีน ซุปไก่ผสมปู</h3>
+                    <span class="product-price" style="text-decoration: line-through; font-size: 0.8rem; color: #888;">25฿</span>
+                    <span class="product-price">20฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า เพิ่มใหม่ Baonuozi ฟรีซดราย -->
+                <div class="product-card" data-category="freeze-dry">
+                    <div class="product-img-wrapper">
+                        <img src="Baonuozi ฟรีซดรายสอดไส้ ซองเล็ก 30g มี3รสชาติ รูปรวม (20฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/8baa51ef9d4ecab5043d92bdae37e521a3f41b2e/Baonuozi%20%E0%B8%9F%E0%B8%A3%E0%B8%B5%E0%B8%8B%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%AA%E0%B9%89%20%E0%B8%8B%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%2030g%20%E0%B8%A1%E0%B8%B53%E0%B8%A3%E0%B8%AA%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A3%E0%B8%A7%E0%B8%A1%20(20%E0%B8%BF).jpeg'" alt="Baonuozi ฟรีซดรายสอดไส้" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="Baonuozi ฟรีซดรายสอดไส้ ซองเล็ก 30g มี3รสชาติ รูปรวม">Baonuozi ฟรีซดรายสอดไส้ ซองเล็ก 30g มี3รสชาติ รูปรวม</h3>
+                    <span class="product-price">20฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า เพิ่มใหม่ Joypet เนื้อสัตว์นึ่ง -->
+                <div class="product-card" data-category="freeze-dry">
+                    <div class="product-img-wrapper">
+                        <img src="Joypet เนื้อสัตว์นึ่ง 40 g มี6รสชาติ (25฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/efa29d70dc74bdc5bda28191a5eb921313fd9be7/Joypet%20%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C%E0%B8%99%E0%B8%B6%E0%B9%88%E0%B8%87%2040%20g%20%E0%B8%A1%E0%B8%B56%E0%B8%A3%E0%B8%AA%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20(25%E0%B8%BF).jpeg'" alt="Joypet เนื้อสัตว์นึ่ง 40 g" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="Joypet เนื้อสัตว์นึ่ง 40 g มี6รสชาติ">Joypet เนื้อสัตว์นึ่ง 40 g มี6รสชาติ</h3>
+                    <span class="product-price">25฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า เพิ่มใหม่ Ranova Lollipop ฟรีซดรายอมยิ้ม -->
+                <div class="product-card" data-category="freeze-dry">
+                    <div class="product-img-wrapper">
+                        <img src="Ranova Lollipop ฟรีซดรายอมยิ้ม มี5รสชาติ.jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/aomjalie/efa29d70dc74bdc5bda28191a5eb921313fd9be7/Ranova%20Lollipop%20%E0%B8%9F%E0%B8%A3%E0%B8%B5%E0%B8%8B%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%AD%E0%B8%A1%E0%B8%A2%E0%B8%B4%E0%B9%89%E0%B8%A1%20%E0%B8%A1%E0%B8%B55%E0%B8%A3%E0%B8%AA%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4.jpeg'" alt="Ranova Lollipop ฟรีซดรายอมยิ้ม" class="product-image">
+                    </div>
+                    <h3 class="product-title" title="Ranova Lollipop ฟรีซดรายอมยิ้ม มี5รสชาติ">Ranova Lollipop ฟรีซดรายอมยิ้ม มี5รสชาติ</h3>
+                    <span class="product-price">- ฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+                <!-- สินค้า 11 (หมวดซุปแมว) -->
+                <div class="product-card" data-category="soup">
+                    <div class="product-img-wrapper">
+                        <img src="Curly Tail Water 85g  ซุปสูตรไก่ (15฿).jpeg" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/aomjalie/Eieijaja/e2599148a694c067d6b848f211bbab5cd4f00e1b/Curly%20Tail%20Water%2085g%20%20%E0%B8%8B%E0%B8%B8%E0%B8%9B%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%81%E0%B9%88%20(15%E0%B8%BF).jpeg'" alt="Curly Tail Water ซุปสูตรไก่" class="product-image">
+                    </div>
+                    <h3 class="product-title">Curly Tail Water 85g ซุปสูตรไก่</h3>
+                    <span class="product-price">15฿</span>
+                    <button class="add-to-cart-btn">🛒 ใส่ตะกร้า</button>
+                </div>
+
+            </section>
+        </div> <!-- ปิด view-shop -->
+
+        <!-- View: ตะกร้าสินค้า -->
+        <div id="view-cart" class="view-section hidden">
+            <section class="howto-container">
+                <h2 class="howto-title">🛒 ตะกร้าสินค้าของคุณ</h2>
+                <div id="cart-items-container">
+                    <p style="text-align: center; color: var(--color-text-muted); padding: 30px 0;">ยังไม่มีสินค้าในตะกร้า 😿</p>
+                </div>
+                <div class="cart-total">
+                    รวมทั้งสิ้น: <span id="cart-total-price" style="color: #d32f2f;">0</span> ฿
+                </div>
+
+                <!-- ช่องทางการชำระเงิน (จะแสดงเมื่อมีของในตะกร้า) -->
+                <div id="payment-section" class="payment-box hidden">
+                    <h3 class="details-subtitle" style="margin-top: 0;">💳 ชำระเงิน (โอนผ่านธนาคาร)</h3>
+                    
+                    <div class="qr-mockup">
+                        <span>[รูปภาพ QR Code]</span>
+                        <span style="font-size: 0.7rem; margin-top: 5px;">(สมมติว่าเป็น QR แม่ค้า)</span>
+                    </div>
+
+                    <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #eee; margin-top: 10px;">
+                        <p><strong>ธนาคาร:</strong> กสิกรไทย (KBank)</p>
+                        <p><strong>เลขบัญชี:</strong> <span style="font-size: 1.1rem; color: var(--color-purple-dark); cursor: pointer;" onclick="alert('คัดลอกเลขบัญชีแล้ว')">012-3-45678-9 📋</span></p>
+                        <p><strong>ชื่อบัญชี:</strong> น.ส. แมวเหมียว ใจดี</p>
+                        <p><strong>พร้อมเพย์:</strong> 081-234-5678</p>
+                    </div>
+
+                    <div class="file-input-wrapper">
+                        <label for="slip-upload" style="font-size: 0.95rem; color: var(--color-pink-dark); font-weight: bold;">📸 แนบสลิปการโอนเงิน (จำเป็น):</label>
+                        <input type="file" id="slip-upload" accept="image/*">
+                    </div>
+                </div>
+
+                <button class="action-btn" id="checkout-btn">✅ ยืนยันการสั่งซื้อ</button>
+            </section>
+        </div>
+
+        <!-- View: ระบบแม่ค้า -->
+        <div id="view-admin" class="view-section hidden">
+            <section class="howto-container">
+                <h2 class="howto-title">⚙️ ระบบแม่ค้า (หลังบ้าน)</h2>
+                
+                <div id="admin-login-view" class="admin-login">
+                    <div style="font-size: 3rem;">🕵️‍♀️</div>
+                    <p>กรุณาใส่รหัสผ่านเพื่อดูออเดอร์</p>
+                    <input type="password" id="admin-pwd" placeholder="รหัสผ่าน (ลองใส่ 1234)">
+                    <button class="action-btn" id="login-btn" style="width: auto;">เข้าสู่ระบบ</button>
+                </div>
+
+                <div id="admin-dashboard-view" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <p style="color: var(--color-pink-dark); font-weight: bold; margin: 0;">📦 ออเดอร์ล่าสุด</p>
+                        <button onclick="location.reload()" style="background:none; border:none; color:var(--color-blue-main); cursor:pointer; text-decoration:underline; font-family:'Mali',cursive;">รีเฟรช</button>
+                    </div>
+                    <div id="order-list">กำลังโหลด...</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View: วิธีการสั่งซื้อ -->
+        <div id="view-howto" class="view-section hidden">
+            <section class="howto-container">
+                <h2 class="howto-title">🛒 วิธีการสั่งซื้อ</h2>
+                <ul class="howto-list">
+                    <li>อ่าน <strong>รายละเอียดเพิ่มเติม</strong> เพื่อเช็คค่าจัดส่ง</li>
+                    <li>เลือกสินค้าที่น้องแมวชอบลงใน <strong>ตะกร้า</strong></li>
+                    <li>ตรวจสอบความถูกต้องของออเดอร์</li>
+                    <li>บวกค่าจัดส่งเพิ่มในยอดโอน (ถ้ามี) ตามรายละเอียดที่แจ้งไว้</li>
+                    <li>โอนเงินและ <strong>แนบสลิป</strong> ในหน้าตะกร้า</li>
+                    <li>กดยืนยัน รอรับของให้เจ้านายได้เลย! 😻</li>
+                </ul>
+            </section>
+        </div>
+        
+        <!-- View: รายละเอียด -->
+        <div id="view-details" class="view-section hidden">
+            <section class="howto-container">
+                <h2 class="howto-title">📝 รายละเอียด & ค่าส่ง</h2>
+                
+                <h3 class="details-subtitle">🛵 โซนจัดส่งและค่าส่ง</h3>
+                <ul class="details-list">
+                    <li><span>✅</span> <strong>ส่งฟรีไม่มีขั้นต่ำ:</strong> โฮมสวีท กรูฟวี่ อรุญกาจณณ์</li>
+                    <li><span>📍</span> <strong>+5฿ (เกิน 60฿ ส่งฟรี):</strong> คุณากร เดอะรูม ดิวัน เย็นสบาย สุขสบาย บริบูรณ์ ทรีโอ้ สกายวิว แฮปปี้โอ้ แกรน เย็นไฮ</li>
+                    <li><span>📍</span> <strong>+5฿ (เกิน 100฿ ส่งฟรี):</strong> หอยู พรีเมียร์ คริสตัล อินดี๊ด PT</li>
+                    <li><span>📍</span> <strong>+10฿ (เกิน 100฿ ส่งฟรี):</strong> ดีคอนโด น็อตติง เคน เดอะไทม์ บ้านพิมพ์บ้านเซน ฝั่งอารีน่า ชาโมนิก แชมเบอรี่</li>
+                    <li><span>📍</span> <strong>+15฿ (เกิน 150฿ ส่งฟรี):</strong> อ่าวล่าง</li>
+                    <li><span>🤝</span> นัดรับพัทยาได้ค่ะ (ทักแชทแม่ค้าได้เลย)</li>
+                </ul>
+
+                <ul class="details-list" style="margin-top: 15px; background: rgba(255,182,193,0.2); padding: 10px; border-radius: 8px;">
+                    <li><span>🐈</span> ค่าส่งอาหารแมว (ค่าส่งตามจริงปัดขึ้น เช่น 38 > 40฿)</li>
+                    <li><span>🛍️</span> ค่าส่งของใช้ 50฿ - 60฿</li>
+                </ul>
+
+                <hr class="details-divider">
+
+                <div class="warning-box">
+                    <p>📸 <strong>ข้อควรระวัง</strong><br>ก่อนลูกค้าแกะถุง/พัสดุ รบกวนถ่ายคลิปวิดีโอไว้เป็นหลักฐานนะคะ หากสินค้ามีชำรุดเสียหาย นอกเหนือจากที่แจ้ง จะรับเคลมค่า 💖</p>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- ระบบสลับหน้า (Navigation) ---
+        const navLinks = document.querySelectorAll('nav a');
+        const views = document.querySelectorAll('.view-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('data-target');
+                if(!target) return;
+
+                // อัปเดตเมนู Active
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // สลับ View
+                views.forEach(view => view.classList.add('hidden'));
+                const targetView = document.getElementById('view-' + target);
+                if (targetView) targetView.classList.remove('hidden');
+
+                // เลื่อนขึ้นบนสุด
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // --- ระบบตัวกรองสินค้า (Category Filter) ---
+        const filterBtns = document.querySelectorAll('.cat-tag');
+        const products = document.querySelectorAll('.product-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // อัปเดตปุ่ม
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                // กรองสินค้า
+                products.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        // เช็คว่า data-category มีคำตรงกับ filter มั้ย (เผื่อสินค้ามีหลายหมวดหมู่ เช่น 'wet-th sale')
+                        const categories = card.getAttribute('data-category');
+                        if (categories && categories.includes(filterValue)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // --- ระบบซ่อนแม่ค้า (คลิกโลโก้ 5 ครั้ง) ---
+        let logoClickCount = 0;
+        let logoClickTimer;
+        document.querySelector('.logo-container').addEventListener('click', () => {
+            logoClickCount++;
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1500); 
+            
+            if (logoClickCount >= 5) {
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                views.forEach(view => view.classList.add('hidden'));
+                document.getElementById('view-admin').classList.remove('hidden');
+                logoClickCount = 0; 
+                alert("เข้าสู่โหมดแม่ค้า 🤫");
+            }
+        });
+
+        // --- ระบบสินค้า & ตะกร้า ---
+        let cart = []; // เก็บรูปแบบ { name, price, qty }
+
+        // จับเหตุการณ์กดปุ่มใส่ตะกร้า
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card');
+                let name = card.querySelector('.product-title').innerText;
+                
+                // เช็คว่ามีตัวเลือกกลิ่น/สีไหม ถ้ามีให้บวกต่อท้ายชื่อสินค้า
+                const optionSelect = card.querySelector('.product-option');
+                if (optionSelect) {
+                    name += ` (${optionSelect.value})`;
+                }
+
+                // หากสินค้ามีลดราคา ให้เอาราคาสุดท้าย (อันที่ 2)
+                const priceElements = card.querySelectorAll('.product-price');
+                const priceText = priceElements[priceElements.length - 1].innerText;
+                const price = parseInt(priceText.replace('฿', '').trim());
+
+                // เช็คว่ามีในตะกร้าหรือยัง
+                const existingItem = cart.find(item => item.name === name);
+                if(existingItem) {
+                    existingItem.qty += 1;
+                } else {
+                    cart.push({ name: name, price: price, qty: 1 });
+                }
+                
+                updateCartUI();
+                animateCartBadge();
+                
+                // เปลี่ยนปุ่มชั่วคราว
+                const originalText = e.target.innerHTML;
+                e.target.innerHTML = "✅ เพิ่มแล้ว!";
+                e.target.style.backgroundColor = "var(--color-pink-dark)";
+                setTimeout(() => {
+                    e.target.innerHTML = originalText;
+                    e.target.style.backgroundColor = "";
+                }, 800);
+            });
+        });
+
+        function animateCartBadge() {
+            const badge = document.getElementById('cart-count');
+            badge.classList.add('bump');
+            setTimeout(() => badge.classList.remove('bump'), 300);
+        }
+
+        function updateCartUI() {
+            // คำนวณจำนวนชิ้นทั้งหมด
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('cart-total-price');
+            const paymentSection = document.getElementById('payment-section'); 
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--color-text-muted); padding: 30px 0;">ยังไม่มีสินค้าในตะกร้า 😿</p>';
+                totalEl.innerText = '0';
+                paymentSection.classList.add('hidden'); 
+                return;
+            }
+
+            paymentSection.classList.remove('hidden'); 
+            container.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div class="cart-item-info">
+                        <span class="cart-item-title">${item.name}</span>
+                        <span class="cart-item-price">${item.price} ฿</span>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="qty-btn" data-action="minus" data-index="${index}">-</button>
+                        <span style="font-weight:bold; width:20px; text-align:center;">${item.qty}</span>
+                        <button class="qty-btn" data-action="plus" data-index="${index}">+</button>
+                        <span style="cursor:pointer; color:#d32f2f; margin-left:10px; font-size:1.2rem;" data-action="remove" data-index="${index}">✖</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            totalEl.innerText = total.toLocaleString();
+
+            // จัดการปุ่ม เพิ่ม/ลด/ลบ ในตะกร้า
+            container.querySelectorAll('button[data-action], span[data-action]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const action = e.target.getAttribute('data-action');
+                    const idx = parseInt(e.target.getAttribute('data-index'));
+                    
+                    if (action === 'remove') {
+                        cart.splice(idx, 1);
+                    } else if (action === 'plus') {
+                        cart[idx].qty += 1;
+                    } else if (action === 'minus') {
+                        if (cart[idx].qty > 1) {
+                            cart[idx].qty -= 1;
+                        } else {
+                            cart.splice(idx, 1);
+                        }
+                    }
+                    updateCartUI();
+                });
+            });
+        }
+
+        // --- ระบบ Cloud Database (Firebase) ---
+        let db, auth, currentUser, appId;
+        const COLLECTION_NAME = "enzo_orders";
+        window.fallbackOrders = []; // จำลองออเดอร์เมื่อไม่มี DB
+        
+        try {
+            const firebaseConfig = JSON.parse(__firebase_config);
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+            const initAuth = async () => {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            };
+            initAuth();
+
+            onAuthStateChanged(auth, (user) => {
+                currentUser = user;
+                if(user && document.getElementById('admin-dashboard-view').classList.contains('hidden') === false) {
+                    loadOrders();
+                }
+            });
+        } catch(e) {
+            console.log("รันในโหมดจำลอง (ไม่ต่อ Firebase)");
+        }
+
+        // สั่งซื้อสินค้า
+        document.getElementById('checkout-btn').addEventListener('click', async () => {
+            if(cart.length === 0) return alert("ตะกร้าว่างเปล่าค่ะ");
+            
+            // เช็คการแนบสลิป
+            const slipInput = document.getElementById('slip-upload');
+            if(!slipInput.value) {
+                const alertMsg = document.createElement('div');
+                alertMsg.style = "position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ffcdd2; color:#c62828; padding:15px 20px; border-radius:10px; z-index:2000; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-weight:bold; border: 2px solid #ef5350;";
+                alertMsg.innerHTML = "⚠️ กรุณาแนบสลิปการโอนเงินก่อนยืนยันนะคะ";
+                document.body.appendChild(alertMsg);
+                setTimeout(() => alertMsg.remove(), 3000);
+                
+                // เลื่อนหน้าจอไปที่ช่องอัปโหลดสลิป
+                slipInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // คำนวณยอดรวม และจัดโครงสร้างข้อมูลเพื่อบันทึก
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const btn = document.getElementById('checkout-btn');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = "⏳ กำลังดำเนินการ...";
+            btn.disabled = true;
+            
+            if(db && currentUser) {
+                // บันทึกลง Cloud
+                const orderData = {
+                    items: cart,
+                    total: total,
+                    timestamp: serverTimestamp(),
+                    status: "รอตรวจสอบยอดโอน"
+                };
+                try {
+                    const ordersRef = collection(db, 'artifacts', appId, 'public', 'data', COLLECTION_NAME);
+                    await addDoc(ordersRef, orderData);
+                } catch(error) {
+                    console.error("Error saving order: ", error);
+                }
+            } else {
+                // จำลองเก็บไว้ในเครื่อง
+                window.fallbackOrders.push({
+                    id: "ENZ-" + Date.now().toString().slice(-5),
+                    items: JSON.parse(JSON.stringify(cart)),
+                    total: total,
+                    timestamp: { toMillis: () => Date.now() },
+                    status: "รอตรวจสอบยอดโอน (จำลอง)"
+                });
+                
+                if(!document.getElementById('admin-dashboard-view').classList.contains('hidden')) {
+                    loadOrders();
+                }
+            }
+                
+            // แจ้งเตือนสั่งซื้อสำเร็จแบบมี Overlay
+            try {
+                const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                audio.play();
+            } catch(e) {} 
+
+            const msg = document.createElement('div');
+            msg.style = "position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--color-bg-paper); padding:30px; border:3px solid var(--color-pink-main); border-radius:20px; z-index:1000; text-align:center; box-shadow:0 15px 40px rgba(0,0,0,0.3); width: 85%; max-width: 350px;";
+            msg.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 10px;">💖</div>
+                <h3 style="color: var(--color-pink-dark); margin-bottom: 10px;">สั่งซื้อสำเร็จ!</h3>
+                <p style='margin:10px 0; font-size: 0.95rem; color: var(--color-text-main);'>สลิปและออเดอร์ถูกส่งไปยังแม่ค้าแล้ว<br>ขอบคุณที่อุดหนุนนะคะ 😻</p>
+                <p style='font-size: 0.8rem; color: #888; margin-top: 10px;'>(ยอดโอน: ${total} ฿)</p>
+                <button id='close-msg' class='action-btn' style='margin:20px auto 0; width: auto; padding: 10px 30px;'>กลับหน้าร้าน</button>
+            `;
+            
+            const overlay = document.createElement('div');
+            overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; backdrop-filter: blur(2px);";
+            document.body.appendChild(overlay);
+            document.body.appendChild(msg);
+            
+            document.getElementById('close-msg').onclick = () => {
+                msg.remove();
+                overlay.remove();
+                // รีเซ็ตค่าตะกร้าและ UI
+                cart = [];
+                document.getElementById('slip-upload').value = ''; 
+                updateCartUI();
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+                
+                // ไปหน้า Shop
+                document.querySelector('a[data-target="shop"]').click();
+            };
+        });
+
+        // ระบบล็อกอินแม่ค้า (รหัสผ่าน 1234)
+        document.getElementById('login-btn').addEventListener('click', () => {
+            const pwd = document.getElementById('admin-pwd').value;
+            if(pwd === "1234") {
+                document.getElementById('admin-login-view').classList.add('hidden');
+                document.getElementById('admin-dashboard-view').classList.remove('hidden');
+                loadOrders(); 
+            } else {
+                const err = document.createElement('p');
+                err.style.color = "#d32f2f";
+                err.style.marginTop = "10px";
+                err.innerText = "❌ รหัสผ่านไม่ถูกต้อง";
+                document.getElementById('admin-login-view').appendChild(err);
+                setTimeout(() => err.remove(), 2000);
+            }
+        });
+
+        // แจ้งเตือนแม่ค้า (Toast)
+        function showAdminNotification() {
+            if (document.getElementById('admin-dashboard-view').classList.contains('hidden')) return;
+
+            try {
+                const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                audio.play();
+            } catch(e) {}
+
+            const toast = document.createElement('div');
+            toast.className = 'admin-toast';
+            toast.innerHTML = `<span style="font-size:1.5rem;">🔔</span> มีออเดอร์ใหม่เข้าจ้า!`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOutRight 0.4s ease-out forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000); 
+        }
+
+        // โหลดออเดอร์ให้แม่ค้าดู
+        let unsubscribeOrders = null;
+        let previousOrderCount = -1; 
+
+        function loadOrders() {
+            const list = document.getElementById('order-list');
+
+            // กรณีไม่มีฐานข้อมูล (รันนอกระบบ) ดึงจาก Memory แทน
+            if(!currentUser || !db) {
+                list.innerHTML = '';
+                
+                if(previousOrderCount !== -1 && window.fallbackOrders.length > previousOrderCount) {
+                    showAdminNotification();
+                }
+                previousOrderCount = window.fallbackOrders.length;
+
+                if(window.fallbackOrders.length === 0) {
+                    list.innerHTML = '<p style="text-align:center; padding: 20px; color:#888;">ยังไม่มีออเดอร์</p>';
+                    return;
+                }
+                
+                let orders = [...window.fallbackOrders];
+                orders.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
+                
+                renderOrderCards(orders, list);
+                return;
+            }
+
+            const ordersRef = collection(db, 'artifacts', appId, 'public', 'data', COLLECTION_NAME);
+            
+            if(unsubscribeOrders) unsubscribeOrders();
+            
+            unsubscribeOrders = onSnapshot(ordersRef, (snapshot) => {
+                list.innerHTML = '';
+                
+                let newOrderCount = snapshot.size;
+                if(previousOrderCount !== -1 && newOrderCount > previousOrderCount) {
+                    showAdminNotification();
+                }
+                previousOrderCount = newOrderCount;
+
+                if(snapshot.empty) {
+                    list.innerHTML = '<p style="text-align:center; padding: 20px; color:#888;">ยังไม่มีออเดอร์</p>';
+                    return;
+                }
+
+                let orders = [];
+                snapshot.forEach(doc => {
+                    orders.push({ id: doc.id, ...doc.data() });
+                });
+                
+                orders.sort((a, b) => {
+                    const ta = a.timestamp?.toMillis() || 0;
+                    const tb = b.timestamp?.toMillis() || 0;
+                    return tb - ta;
+                });
+
+                renderOrderCards(orders, list);
+            }, (error) => {
+                console.error("Listen failed: ", error);
+                document.getElementById('order-list').innerHTML = '<p style="color:red;">เกิดข้อผิดพลาดในการดึงข้อมูลออเดอร์</p>';
+            });
+        }
+
+        // ฟังก์ชันช่วยสร้างการ์ดออเดอร์
+        function renderOrderCards(orders, list) {
+            orders.forEach(order => {
+                const div = document.createElement('div');
+                div.className = 'order-card';
+                
+                // รูปแบบเวลา
+                let timeString = "ไม่ทราบเวลา";
+                if(order.timestamp && order.timestamp.toMillis) {
+                    const date = new Date(order.timestamp.toMillis());
+                    timeString = `${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')} น.`;
+                }
+
+                // สรุปรายการสินค้า
+                const itemSummary = order.items.map(i => `• ${i.name} <b>x${i.qty}</b>`).join('<br>');
+                const isPaid = order.status === "ตรวจสอบยอดเงินแล้ว 💖";
+
+                div.innerHTML = `
+                    <div class="order-time">🕒 ${timeString}</div>
+                    <strong style="color:var(--color-purple-dark)">ออเดอร์ ID:</strong> ${order.id.length > 8 ? order.id.slice(0,6) : order.id}<br>
+                    <strong>ยอดรวม:</strong> <span style="color:red; font-size:1.1rem; font-weight:bold;">${order.total} ฿</span><br>
+                    <strong>สถานะ:</strong> <span style="color:${isPaid ? '#4caf50' : 'var(--color-pink-dark)'}; font-weight:bold;">${order.status}</span><br>
+                    <div style="background: #f9f9f9; padding: 8px; border-radius: 6px; margin: 10px 0; font-size: 0.85rem;">
+                        ${itemSummary}
+                    </div>
+                    <button class="status-btn" data-id="${order.id}" ${isPaid ? 'disabled' : ''} style="width: 100%; justify-content: center;">
+                        ${isPaid ? '✅ ตรวจสอบแล้ว' : '✨ ยืนยันยอดเงินโอน'}
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+
+            list.querySelectorAll('.status-btn:not(:disabled)').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    if(!confirm("ยืนยันว่าตรวจสอบยอดเงินแล้วใช่หรือไม่?")) return;
+                    
+                    const orderId = e.target.getAttribute('data-id');
+                    e.target.innerHTML = "⏳ กำลังอัปเดต...";
+                    e.target.disabled = true;
+
+                    if (!currentUser || !db) {
+                        const order = window.fallbackOrders.find(o => o.id === orderId);
+                        if(order) order.status = "ตรวจสอบยอดเงินแล้ว 💖";
+                        loadOrders();
+                    } else {
+                        try {
+                            const orderRef = doc(db, 'artifacts', appId, 'public', 'data', COLLECTION_NAME, orderId);
+                            await updateDoc(orderRef, { status: "ตรวจสอบยอดเงินแล้ว 💖" });
+                        } catch(err) {
+                            console.error(err);
+                            e.target.innerHTML = "❌ ผิดพลาด";
+                            e.target.disabled = false;
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
